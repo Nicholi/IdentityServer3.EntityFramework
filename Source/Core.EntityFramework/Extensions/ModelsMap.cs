@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 /*
  * Copyright 2014 Dominick Baier, Brock Allen
  *
@@ -30,7 +31,8 @@ namespace IdentityServer3.Core.Models
                 .ForMember(x => x.ScopeClaims, opts => opts.MapFrom(src => src.Claims.Select(x => x)));
             Mapper.CreateMap<Models.ScopeClaim, Entities.ScopeClaim>(MemberList.Source);
 
-            Mapper.CreateMap<Models.Secret, Entities.ClientSecret>(MemberList.Source);
+            Mapper.CreateMap<Models.Secret, Entities.ClientSecret>(MemberList.Source)
+                .ForMember(d => d.Expiration, o => o.MapFrom(s => s.Expiration.HasValue ? (Nullable<DateTime>)s.Expiration.Value.ToUniversalTime().DateTime : null));
             Mapper.CreateMap<Models.Client, Entities.Client>(MemberList.Source)
                 .ForMember(x => x.UpdateAccessTokenOnRefresh, opt => opt.MapFrom(src => src.UpdateAccessTokenClaimsOnRefresh))
                 .ForMember(x => x.AllowAccessToAllGrantTypes, opt => opt.MapFrom(src => src.AllowAccessToAllCustomGrantTypes))
