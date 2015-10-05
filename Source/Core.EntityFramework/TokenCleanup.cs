@@ -95,9 +95,11 @@ namespace IdentityServer3.EntityFramework
 
                 using (var db = new OperationalDbContext(this.options.ConnectionString, this.options.Schema))
                 {
+                    // outside of LINQ because the function CurrentUtcDateTime does not exist in mysql
+                    var utcNow = DateTime.UtcNow;
                     var query =
                         from token in db.Tokens
-                        where token.Expiry < DateTime.UtcNow
+                        where token.Expiry < utcNow
                         select token;
 
                     db.Tokens.RemoveRange(query);
