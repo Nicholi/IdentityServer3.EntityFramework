@@ -32,7 +32,8 @@ namespace IdentityServer3.Core.Models
                 .ForMember(x => x.ScopeClaims, opts => opts.MapFrom(src => src.Claims.Select(x => x)))
                 .ForMember(x => x.ScopeSecrets, opts => opts.MapFrom(src => src.ScopeSecrets.Select(x => x)));
             Mapper.CreateMap<Models.ScopeClaim, Entities.ScopeClaim>(MemberList.Source);
-            Mapper.CreateMap<Models.Secret, Entities.ScopeSecret>(MemberList.Source);
+            Mapper.CreateMap<Models.Secret, Entities.ScopeSecret>(MemberList.Source)
+                .ForMember(d => d.Expiration, o => o.MapFrom(s => s.Expiration.HasValue ? (Nullable<DateTime>)s.Expiration.Value.ToUniversalTime().DateTime : null));
 
             Mapper.CreateMap<Models.Secret, Entities.ClientSecret>(MemberList.Source)
                 .ForMember(d => d.Expiration, o => o.MapFrom(s => s.Expiration.HasValue ? (Nullable<DateTime>)s.Expiration.Value.ToUniversalTime().DateTime : null));
