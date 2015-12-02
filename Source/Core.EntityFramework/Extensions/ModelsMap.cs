@@ -1,6 +1,4 @@
-﻿using System;
-using AutoMapper;
-/*
+﻿/*
  * Copyright 2014 Dominick Baier, Brock Allen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +13,9 @@ using AutoMapper;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -28,8 +29,10 @@ namespace IdentityServer3.Core.Models
         {
             Mapper.CreateMap<Models.Scope, Entities.Scope>(MemberList.Source)
                 .ForSourceMember(x => x.Claims, opts => opts.Ignore())
-                .ForMember(x => x.ScopeClaims, opts => opts.MapFrom(src => src.Claims.Select(x => x)));
+                .ForMember(x => x.ScopeClaims, opts => opts.MapFrom(src => src.Claims.Select(x => x)))
+                .ForMember(x => x.ScopeSecrets, opts => opts.MapFrom(src => src.ScopeSecrets.Select(x => x)));
             Mapper.CreateMap<Models.ScopeClaim, Entities.ScopeClaim>(MemberList.Source);
+            Mapper.CreateMap<Models.Secret, Entities.ScopeSecret>(MemberList.Source);
 
             Mapper.CreateMap<Models.Secret, Entities.ClientSecret>(MemberList.Source)
                 .ForMember(d => d.Expiration, o => o.MapFrom(s => s.Expiration.HasValue ? (Nullable<DateTime>)s.Expiration.Value.ToUniversalTime().DateTime : null));
@@ -52,6 +55,10 @@ namespace IdentityServer3.Core.Models
             if (s.Claims == null)
             {
                 s.Claims = new List<Models.ScopeClaim>();
+            }
+            if (s.ScopeSecrets == null)
+            {
+                s.ScopeSecrets = new List<Models.Secret>();
             }
 
             return Mapper.Map<Models.Scope, Entities.Scope>(s);

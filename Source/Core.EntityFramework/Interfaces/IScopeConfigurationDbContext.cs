@@ -14,28 +14,13 @@
  * limitations under the License.
  */
 
+using System.Data.Entity;
+using IdentityServer3.EntityFramework.Entities;
 
 namespace IdentityServer3.EntityFramework
 {
-    internal static class StringExtensions
+    public interface IScopeConfigurationDbContext
     {
-        public static string GetOrigin(this string url)
-        {
-            if (url != null && (url.StartsWith("http://") || url.StartsWith("https://")))
-            {
-                var idx = url.IndexOf("//");
-                if (idx > 0)
-                {
-                    idx = url.IndexOf("/", idx + 2);
-                    if (idx >= 0)
-                    {
-                        url = url.Substring(0, idx);
-                    }
-                    return url;
-                }
-            }
-
-            return null;
-        }
+        DbSet<Scope> Scopes { get; set; }
     }
 }

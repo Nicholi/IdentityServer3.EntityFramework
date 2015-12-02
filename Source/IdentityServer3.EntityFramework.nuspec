@@ -6,10 +6,10 @@
     <title>IdentityServer3 - Entity Framework</title>
     <authors>Brock Allen, Dominick Baier, and contributors</authors>
     <owners>Brock Allen, Dominick Baier</owners>
-    <projectUrl>https://github.com/IdentityServer/IdentityServer33.EntityFramework</projectUrl>
+    <projectUrl>https://github.com/IdentityServer/IdentityServer3.EntityFramework</projectUrl>
     <iconUrl>https://identityserver.github.io/Documentation/assets/images/icons/IDserver_icon128.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/IdentityServer/IdentityServer33.EntityFramework/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://github.com/IdentityServer/IdentityServer3.EntityFramework/blob/master/LICENSE</licenseUrl>
     <summary>Entity Framework-based persistence layer for IdentityServer3</summary>
     <description>Entity Framework-based persistence layer for IdentityServer3</description>
     <releaseNotes></releaseNotes>
@@ -17,8 +17,8 @@
     <tags>IdentityServer OpenID Connect OpenIDConnect OAuth2 OWIN ASP.NET Katana WebApi SSO Federation Claims Identity EF EntityFramework</tags>
 
     <dependencies>
-      <dependency id="IdentityServer3" version="2.0.0"  />
-      <dependency id="AutoMapper" version="4.0.4" />
+      <dependency id="IdentityServer3" version="2.2.0"  />
+      <dependency id="AutoMapper" version="4.1.1" />
       <dependency id="EntityFramework" version="6.1.3" />
       <dependency id="Newtonsoft.Json" version="7.0.1" />
     </dependencies>

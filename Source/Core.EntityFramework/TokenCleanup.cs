@@ -87,13 +87,18 @@ namespace IdentityServer3.EntityFramework
             }
         }
 
+        public virtual IOperationalDbContext CreateOperationalDbContext()
+        {
+            return new OperationalDbContext(options.ConnectionString, options.Schema);
+        }
+
         private async Task ClearTokens()
         {
             try
             {
                 Logger.Info("Clearing tokens");
 
-                using (var db = new OperationalDbContext(this.options.ConnectionString, this.options.Schema))
+                using (var db = CreateOperationalDbContext())
                 {
                     // outside of LINQ because the function CurrentUtcDateTime does not exist in mysql
                     var utcNow = DateTime.UtcNow;

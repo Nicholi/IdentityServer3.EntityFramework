@@ -24,7 +24,7 @@ namespace IdentityServer3.EntityFramework
 {
     public class RefreshTokenStore : BaseTokenStore<RefreshToken>, IRefreshTokenStore
     {
-        public RefreshTokenStore(OperationalDbContext context, IScopeStore scopeStore, IClientStore clientStore)
+        public RefreshTokenStore(IOperationalDbContext context, IScopeStore scopeStore, IClientStore clientStore)
             : base(context, TokenType.RefreshToken, scopeStore, clientStore)
         {
         }
@@ -45,7 +45,7 @@ namespace IdentityServer3.EntityFramework
                 context.Tokens.Add(token);
             }
 
-            token.Expiry = DateTime.UtcNow.AddSeconds(value.LifeTime);
+            token.Expiry = value.CreationTime.AddSeconds(value.LifeTime).ToUniversalTime().DateTime;
             await context.SaveChangesAsync();
         }
     }
