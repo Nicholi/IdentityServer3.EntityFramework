@@ -5,5 +5,6 @@ Dev build: [![Build status](https://ci.appveyor.com/api/projects/status/e4t73mt1
 
 IdentityServer3.EntityFramework is a persistence layer for IdentityServer v3 configuration data that uses EntityFramework as it's database abstraction. 
 
-Modifications of this fork specifically so it will work with MySql's EntityFramework.
-1. MySql.EF6 has no implementation for DateTimeOffset. We change these properties to DateTime objects and assure UTC is always used.
+Modifications of this fork specifically so it will work with MySql's EntityFramework library, MySql.Data.Entity.
+
+1. MySql.Data.Entity.EF6 does not handle DateTimeOffset fields. We change these fields to DateTime and assure UTC is always used.
